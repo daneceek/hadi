@@ -46,10 +46,8 @@ class Game :
             ladder.go_up(active_player, self.ladders[active_field])   
             
         for index in range (1, self.number_of_players + 1):
-            if (self.player_dict["player" + str(index)] == self.player_dict["player" + str(active_player)]) and (index != active_player):
+            if (self.player_dict["player" + str(index)] == self.player_dict["player" + str(active_player)]) and (index != active_player) and (self.player_dict["player" + str(active_player)] != 0) :
                 self.player_dict["player" + str(active_player)] -= 1
-                if self.player_dict["player" + str(active_player)] < 0:
-                    self.player_dict["player" + str(active_player)] -= 1
                 print("Na políčku č." + str(self.player_dict["player" + str(index)]) + " již stojí hráč č." + str(index)+", a tedy je hráč č." + str(active_player) + " posunut na políčko č." + str(self.player_dict["player" + str(active_player)]))
                 self.check_field(active_player)
                 
