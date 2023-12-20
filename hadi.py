@@ -53,10 +53,10 @@ class Game :
             
         for index in range (1, self.number_of_players + 1):
             if (self.player_dict["player" + str(index)] == self.player_dict["player" + str(active_player)]) and (index != active_player) and (self.player_dict["player" + str(active_player)] != 0) :
-                self.player_dict["player" + str(active_player)] -= 1
+                self.player_dict["player" + str(index)] -= 1
                 sleep(0.5)
-                print("Na políčku č." + str(self.player_dict["player" + str(index)]) + " již stojí hráč č." + str(index)+", a tedy je hráč č." + str(active_player) + " posunut na políčko č." + str(self.player_dict["player" + str(active_player)]))
-                self.check_field(active_player)
+                print("Na políčku č." + str(self.player_dict["player" + str(index)] + 1) + " již stál hráč č." + str(index)+", a tedy je tento hráč posunut na políčko č. " + str(self.player_dict["player" + str(index)]))
+                self.check_field(index)
                 
     def check_player_win(self, active_player, hod):
         if self.player_dict["player" + str(active_player)] == 100:
@@ -74,12 +74,12 @@ class Game :
 
 class Snake():
     def go_back(self, active_player, goto_field):
-        print("na tomto políčku se nachází had, který hráče č." +str(active_player) + " vrací na políčko č." + str(goto_field)+"!")
+        print("na tomto políčku (č." + str(game.player_dict["player"+str(active_player)]) + ")  se nachází had, který hráče č." +str(active_player) + " vrací na políčko č." + str(goto_field)+"!")
         game.player_dict["player"+str(active_player)] = goto_field
         
 class Ladder():
     def go_up(self, active_player, goto_field):
-        print("na tomto políčku se nachází žebřík, který hráče č." +str(active_player) + " vyzdvihne na políčko č." + str(goto_field)+"!")
+        print("na tomto políčku (č." + str(game.player_dict["player"+str(active_player)]) + ")se nachází žebřík, který hráče č." +str(active_player) + " vyzdvihne na políčko č." + str(goto_field)+"!")
         game.player_dict["player"+str(active_player)] = goto_field
         
 game = Game()
