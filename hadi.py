@@ -1,4 +1,5 @@
 import random
+from time import sleep
 
 class Game :
     snakes = {16: 6, 49:11, 46:25, 62:19, 64:60, 89:68, 74:53, 99:80, 95:75, 92:88}
@@ -14,23 +15,28 @@ class Game :
         self.set_number_of_players()
         while True:
             for active_player in range(1, self.number_of_players + 1):
+                sleep(0.5)
                 print("nyní hází kostkou hráč č." + str(active_player) + ". Stiskněte enter pro hod kostkou.\n")
                 input()
                 hod = random.randint(1, 6)
                 while (hod % 6 == 0):
                     print("hráč č."+ str(active_player) +" hodil číslo 6. Hází tedy ještě jednou. Zmáčkněte enter.")
                     input()
+                    sleep(0.5)
                     bonus_hod = random.randint(1, 6)
                     hod += bonus_hod
                     print("hráč č." + str(active_player) + " hodil " +str(bonus_hod)+"." )
                     if bonus_hod == 6:
+                        sleep(0.5)
                         print("Nyní již nahrál " + str(hod))
                         continue
                 
                 self.player_dict["player" + str(active_player)] += hod
+                sleep(0.5)
                 print("hráč č." + str(active_player) + " celkově hodil " + str(hod)+"." )
                 self.check_field(active_player)
                 self.check_player_win(active_player, hod)
+                sleep(0.5)
                 print("nyní je na políčku č." + str(self.player_dict["player" + str(active_player)])+"\n")
                 
                 print(self.player_dict)
@@ -48,14 +54,18 @@ class Game :
         for index in range (1, self.number_of_players + 1):
             if (self.player_dict["player" + str(index)] == self.player_dict["player" + str(active_player)]) and (index != active_player) and (self.player_dict["player" + str(active_player)] != 0) :
                 self.player_dict["player" + str(active_player)] -= 1
+                sleep(0.5)
                 print("Na políčku č." + str(self.player_dict["player" + str(index)]) + " již stojí hráč č." + str(index)+", a tedy je hráč č." + str(active_player) + " posunut na políčko č." + str(self.player_dict["player" + str(active_player)]))
                 self.check_field(active_player)
                 
     def check_player_win(self, active_player, hod):
         if self.player_dict["player" + str(active_player)] == 100:
+            sleep(1)
             print("nyní je na políčku č.100 \n")
+            sleep(1)
             exit("Hráč č." + str(active_player) + " vyhrál hru.")
         elif self.player_dict["player" + str(active_player)] > 100:
+            sleep(1)
             print("hráč č." + str(active_player) + " se netrefil do cíle, zůstává tedy stát na původním políčku")
             self.player_dict["player" + str(active_player)] -= hod
              
