@@ -74,7 +74,7 @@ class Game :
 
 class Snake():
     def go_back(self, active_player, goto_field):
-        print("na tomto políčku (č." + str(game.player_dict["player"+str(active_player)]) + ")  se nachází had, který hráče č." +str(active_player) + " vrací na políčko č." + str(goto_field)+"!")
+        print("na tomto políčku (č." + str(game.player_dict["player"+str(active_player)]) + ") se nachází had, který hráče č." +str(active_player) + " vrací na políčko č." + str(goto_field)+"!")
         game.player_dict["player"+str(active_player)] = goto_field
         
 class Ladder():
