@@ -6,10 +6,24 @@ class Game :
     ladders = {2:38, 7:14, 8:31, 15:26, 21:42, 36:44, 51:67, 78:98, 71:91, 87:94, 28:84}
     
     def set_number_of_players(self):
-        self.number_of_players = int(input("Zadejte počet hráčů: "))
+        
+        while True:
+            try:
+                self.number_of_players = int(input("Zadejte počet hráčů: "))
+                if  self.number_of_players  <= 0:
+                    print("Počet hráčů musí být kladný.")
+                    print()
+                else:
+                    break
+                    
+            except ValueError:
+                print("Zadejte prosím platný počet hráčů.")
+                print()
+       
+        
         self.player_dict = dict()
         for player in range(1, self.number_of_players + 1):
-            self.player_dict["player" + str(player)]  = 0
+            self.player_dict["player" + str(player)] = 1
         
     def main(self):
         self.set_number_of_players()
@@ -39,7 +53,12 @@ class Game :
                 sleep(0.5)
                 print("nyní je na políčku č." + str(self.player_dict["player" + str(active_player)])+"\n")
                 
-                print(self.player_dict)
+                player_index = 1 
+                for player_score in self.player_dict.values():
+                    print("Hráč č." + str(player_index) + " je na políčku č." + str(player_score)+ ".")
+                    player_index += 1
+                    
+                print()
                 
     def check_field(self, active_player):
         
@@ -55,7 +74,7 @@ class Game :
             if (self.player_dict["player" + str(index)] == self.player_dict["player" + str(active_player)]) and (index != active_player) and (self.player_dict["player" + str(active_player)] != 0) :
                 self.player_dict["player" + str(index)] -= 1
                 sleep(0.5)
-                print("Na políčku č." + str(self.player_dict["player" + str(index)] + 1) + " již stál hráč č." + str(index)+", a tedy je tento hráč posunut na políčko č. " + str(self.player_dict["player" + str(index)]))
+                print("Na políčku č." + str(self.player_dict["player" + str(index)] + 1) + " již stál hráč č." + str(index)+", a tedy je tento hráč posunut na políčko č." + str(self.player_dict["player" + str(index)]))
                 self.check_field(index)
                 
     def check_player_win(self, active_player, hod):
@@ -79,7 +98,7 @@ class Snake():
         
 class Ladder():
     def go_up(self, active_player, goto_field):
-        print("na tomto políčku (č." + str(game.player_dict["player"+str(active_player)]) + ")se nachází žebřík, který hráče č." +str(active_player) + " vyzdvihne na políčko č." + str(goto_field)+"!")
+        print("na tomto políčku (č." + str(game.player_dict["player"+str(active_player)]) + ") se nachází žebřík, který hráče č." +str(active_player) + " vyzdvihne na políčko č." + str(goto_field)+"!")
         game.player_dict["player"+str(active_player)] = goto_field
         
 game = Game()
